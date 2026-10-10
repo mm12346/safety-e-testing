@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบทดสอบออนไลน์ - กฎกระทรวงความปลอดภัยในการทำงานบนที่สูง พ.ศ. 2564</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        safety: {
+                            navy: '#0F172A',
+                            blue: '#1E40AF',
+                            lightBlue: '#3B82F6',
+                            orange: '#F97316',
+                            green: '#10B981',
+                            red: '#EF4444',
+                            amber: '#F59E0B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #F8FAFC;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white !important; }
+            .certificate-container { border: 8px double #1E40AF !important; box-shadow: none !important; }
+        }
+        .print-only { display: none; }
+    </style>
+</head>
+<body class="text-slate-800 bg-slate-50 min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Header Navbar -->
+    <header class="bg-safety-navy text-white shadow-lg sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-safety-orange p-2 rounded-lg text-white">
+                    <i class="fa-solid fa-hard-hat text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm sm:text-base leading-tight">ระบบทดสอบความปลอดภัยอาชีวอนามัย</h1>
+                    <p class="text-xs text-slate-300 hidden sm:block">กฎกระทรวงงานในที่สูง ที่ลาดชัน และวัสดุกระเด็น พ.ศ. 2564</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 text-xs sm:text-sm">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900 text-blue-200 border border-blue-700">
+                    <i class="fa-solid fa-shield-halved mr-1.5 text-safety-orange"></i> Safety Standard
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex-grow">
+
+        <!-- STEP 1: REGISTRATION FORM -->
+        <section id="step-registration" class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-safety-navy via-slate-800 to-safety-blue p-6 sm:p-8 text-white">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="bg-safety-orange text-white text-xs font-bold px-2.5 py-1 rounded">แบบทดสอบออนไลน์</span>
+                    <span class="text-xs text-slate-300"><i class="fa-regular fa-clock mr-1"></i>20 ข้อ (เกณฑ์ผ่าน 70%)</span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-bold">กรอกข้อมูลผู้เข้าทดสอบ</h2>
+                <p class="text-slate-300 text-sm mt-1">โปรดระบุข้อมูลให้ครบถ้วนถูกต้อง เพื่อใช้ในการออกใบรับรองผลการสอบ</p>
+            </div>
+
+            <form id="regForm" onsubmit="handleStartExam(event)" class="p-6 sm:p-8 space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- ชื่อ - นามสกุล -->
+                    <div>
+                        <label for="fullName" class="block text-sm font-medium text-slate-700 mb-1">
+                            ชื่อ - นามสกุล <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                            <input type="text" id="fullName" required placeholder="นายสมชาย ใจดี" 
+                                class="pl-10 w-full rounded-lg border border-slate-300 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-safety-blue focus:border-transparent text-sm">
+                        </div>
+                    </div>
+
+                    <!-- ตำแหน่งงาน -->
+                    <div>
+                        <label for="position" class="block text-sm font-medium text-slate-700 mb-1">
+                            ตำแหน่งงาน <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <input type="text" id="position" required placeholder="เจ้าหน้าที่ความปลอดภัย (จป.วิชาชีพ) / ช่างเทคนิค" 
+                                class="pl-10 w-full rounded-lg border border-slate-300 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-safety-blue focus:border-transparent text-sm">
+                        </div>
+                    </div>
+
+                    <!-- บริษัท / หน่วยงาน -->
+                    <div>
+                        <label for="company" class="block text-sm font-medium text-slate-700 mb-1">
+                            บริษัท / หน่วยงาน / สังกัด <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-regular fa-building"></i>
+                            </div>
+                            <input type="text" id="company" required placeholder="บริษัท เซฟตี้ จำกัด" 
+                                class="pl-10 w-full rounded-lg border border-slate-300 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-safety-blue focus:border-transparent text-sm">
+                        </div>
+                    </div>
+
+                    <!-- เลขบัตรประชาชน -->
+                    <div>
+                        <label for="citizenId" class="block text-sm font-medium text-slate-700 mb-1">
+                            เลขบัตรประจำตัวประชาชน (13 หลัก) <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                <i class="fa-regular fa-id-card"></i>
+                            </div>
+                            <input type="text" id="citizenId" maxlength="13" required placeholder="1234567890123" 
+                                class="pl-10 w-full rounded-lg border border-slate-300 py-2.5 px-3 focus:outline-none focus:ring-2 focus:ring-safety-blue focus:border-transparent text-sm font-mono"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        <p id="idError" class="text-red-500 text-xs mt-1 hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i>เลขบัตรประชาชนต้องมี 13 หลัก</p>
+                    </div>
+
+                    <!-- ประเภทการทดสอบ (เพิ่มใหม่) -->
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">
+                            ประเภทการทดสอบ <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="examType" value="pre-test" class="peer sr-only" required>
+                                <div class="rounded-xl border border-slate-200 p-4 hover:bg-slate-50 peer-checked:border-safety-blue peer-checked:bg-blue-50 peer-checked:ring-2 peer-checked:ring-safety-blue peer-checked:ring-opacity-50 transition-all flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 peer-checked:bg-safety-blue peer-checked:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                        <i class="fa-solid fa-hourglass-start"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-800 text-sm">ก่อนการอบรม (Pre-test)</div>
+                                        <div class="text-xs text-slate-500">ทดสอบความรู้พื้นฐานก่อนเริ่มเรียน</div>
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="flex-1 cursor-pointer">
+                                <input type="radio" name="examType" value="post-test" class="peer sr-only">
+                                <div class="rounded-xl border border-slate-200 p-4 hover:bg-slate-50 peer-checked:border-safety-blue peer-checked:bg-blue-50 peer-checked:ring-2 peer-checked:ring-safety-blue peer-checked:ring-opacity-50 transition-all flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 peer-checked:bg-safety-blue peer-checked:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                                        <i class="fa-solid fa-flag-checkered"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-800 text-sm">หลังการอบรม (Post-test)</div>
+                                        <div class="text-xs text-slate-500">ทดสอบวัดผลสัมฤทธิ์หลังเรียน</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 flex items-start space-x-3">
+                    <i class="fa-solid fa-circle-info text-safety-blue text-lg mt-0.5"></i>
+                    <div class="text-xs text-blue-900 leading-relaxed">
+                        <strong class="font-semibold block mb-0.5">คำชี้แจงการทำข้อสอบ:</strong>
+                        ข้อสอบมีจำนวนทั้งหมด 20 ข้อ ข้อละ 1 คะแนน รวม 20 คะแนนเต็ม โดยมีเกณฑ์สอบผ่านที่ 70% (14 คะแนนขึ้นไป) ข้อมูลที่กรอกจะนำไปใช้ในการออกใบรายงานผลและประกาศนียบัตรอย่างเป็นทางการ และจะถูกบันทึกลงในฐานข้อมูลระบบ
+                    </div>
+                </div>
+
+                <div class="pt-2 flex justify-end">
+                    <button type="submit" 
+                        class="w-full sm:w-auto px-8 py-3 bg-safety-orange hover:bg-orange-600 text-white font-semibold rounded-xl shadow-lg shadow-orange-500/30 transition-all flex items-center justify-center space-x-2 text-base cursor-pointer">
+                        <span>เริ่มทำข้อสอบ</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- STEP 2: EXAMINATION INTERFACE -->
+        <section id="step-exam" class="hidden space-y-6">
+            
+            <!-- User Bar & Progress -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-3 w-full md:w-auto">
+                    <div class="w-10 h-10 rounded-full bg-safety-blue text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <h3 id="displayUserName" class="font-bold text-slate-800 text-sm sm:text-base truncate">นายสมชาย ใจดี</h3>
+                        <p id="displayUserDetail" class="text-xs text-slate-500 truncate">ตำแหน่ง: จป.วิชาชีพ | บริษัท: เซฟตี้ จำกัด</p>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-64 space-y-1">
+                    <div class="flex justify-between text-xs font-semibold">
+                        <span class="text-slate-600">ความคืบหน้า</span>
+                        <span id="progressText" class="text-safety-blue">ตอบแล้ว 0 / 20 ข้อ</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                        <div id="progressBar" class="bg-safety-blue h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="bg-slate-900 text-white p-4 sm:p-6 flex justify-between items-center">
+                    <span class="bg-safety-blue text-white text-xs font-bold px-3 py-1 rounded-full flex items-center">
+                        <i class="fa-solid fa-file-signature mr-1.5"></i> ข้อที่ <span id="currentQNum" class="ml-1 text-sm">1</span> / 20
+                    </span>
+                    <span class="text-xs text-slate-400">กฎกระทรวงความปลอดภัยบนที่สูง พ.ศ. 2564</span>
+                </div>
+
+                <div class="p-6 sm:p-8">
+                    <!-- Question Title -->
+                    <h3 id="questionTitle" class="text-base sm:text-lg font-semibold text-slate-900 mb-6 leading-relaxed">
+                        คำถามจะปรากฏที่นี่...
+                    </h3>
+
+                    <!-- Options List -->
+                    <div id="optionsContainer" class="space-y-3">
+                        <!-- Options injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="bg-slate-50 p-4 sm:p-6 border-t border-slate-200 flex items-center justify-between">
+                    <button id="btnPrev" onclick="navigateQuestion(-1)" 
+                        class="px-5 py-2.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 text-sm font-medium transition flex items-center space-x-2">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>ข้อก่อนหน้า</span>
+                    </button>
+
+                    <button id="btnNext" onclick="navigateQuestion(1)" 
+                        class="px-5 py-2.5 rounded-lg bg-safety-blue hover:bg-blue-800 text-white text-sm font-medium transition flex items-center space-x-2">
+                        <span>ข้อถัดไป</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <button id="btnSubmit" onclick="confirmSubmitExam()" 
+                        class="hidden px-6 py-2.5 rounded-lg bg-safety-green hover:bg-emerald-600 text-white text-sm font-bold transition flex items-center space-x-2 shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span id="btnSubmitText">ส่งข้อสอบ</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question Grid Navigator -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">แผงนำทางข้อสอบ (Question Navigation)</h4>
+                <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                    <!-- Grid buttons injected dynamically -->
+                </div>
+                <div class="mt-4 flex items-center space-x-4 text-xs text-slate-500 pt-3 border-t border-slate-100">
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-safety-blue rounded-full inline-block"></span><span>ข้อปัจจุบัน</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-emerald-100 border border-emerald-500 rounded-full inline-block"></span><span>ตอบแล้ว</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 bg-slate-100 border border-slate-300 rounded-full inline-block"></span><span>ยังไม่ได้ตอบ</span></div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- STEP 3: RESULT & REVIEW SECTION -->
+        <section id="step-result" class="hidden space-y-6 no-print">
+            
+            <!-- Result Summary Card -->
+            <div id="resultHeaderCard" class="rounded-2xl shadow-lg border p-6 sm:p-8 text-white text-center transition-all">
+                <div class="inline-flex p-4 rounded-full bg-white/20 mb-3 text-4xl" id="resultIcon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h2 id="resultStatusText" class="text-2xl sm:text-3xl font-extrabold mb-1">ผลการทดสอบ: ผ่านเกณฑ์</h2>
+                <p id="resultSubText" class="text-sm opacity-90 mb-4">คุณผ่านการทดสอบตามเกณฑ์มาตรฐานความปลอดภัย</p>
+                
+                <div class="inline-block bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 border border-white/20 my-2">
+                    <div class="text-xs uppercase tracking-wider text-slate-200">คะแนนที่ได้</div>
+                    <div class="text-4xl sm:text-5xl font-extrabold my-1" id="scoreDisplay">18 / 20</div>
+                    <div class="text-sm font-medium" id="percentageDisplay">คิดเป็น 90% (เกณฑ์ผ่าน 70%)</div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap justify-center gap-3">
+                    <button onclick="window.print()" class="px-6 py-2.5 bg-white text-slate-800 font-bold rounded-xl shadow hover:bg-slate-100 transition flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-print"></i>
+                        <span>พิมพ์ผลการสอบ / ประกาศนียบัตร</span>
+                    </button>
+                    <button onclick="restartExam()" class="px-6 py-2.5 bg-slate-800/60 hover:bg-slate-800 text-white font-medium rounded-xl border border-white/30 transition flex items-center space-x-2 text-sm">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>ทำแบบทดสอบอีกครั้ง</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Candidate Info Summary Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                <h3 class="text-sm font-bold text-slate-700 border-b pb-2 mb-3"><i class="fa-solid fa-id-badge text-safety-blue mr-2"></i>ข้อมูลผู้เข้าทดสอบ</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-xs">
+                    <div><span class="text-slate-400 block">ชื่อ-นามสกุล</span><span id="resName" class="font-semibold text-slate-800 text-sm">-</span></div>
+                    <div><span class="text-slate-400 block">ตำแหน่ง</span><span id="resPosition" class="font-semibold text-slate-800 text-sm">-</span></div>
+                    <div><span class="text-slate-400 block">บริษัท / หน่วยงาน</span><span id="resCompany" class="font-semibold text-slate-800 text-sm">-</span></div>
+                    <div><span class="text-slate-400 block">เลขบัตรประชาชน</span><span id="resCitizenId" class="font-semibold text-slate-800 text-sm font-mono">-</span></div>
+                    <div><span class="text-slate-400 block">ประเภทการสอบ</span><span id="resExamType" class="font-semibold text-safety-blue text-sm">-</span></div>
+                </div>
+            </div>
+
+            <!-- Detailed Answer Review -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                <div class="p-5 bg-slate-900 text-white flex justify-between items-center">
+                    <h3 class="font-bold text-base flex items-center">
+                        <i class="fa-solid fa-list-check text-safety-orange mr-2"></i> เฉลยและคำอธิบายโดยละเอียด
+                    </h3>
+                    <span class="text-xs text-slate-400">อ้างอิงกฎกระทรวง พ.ศ. 2564</span>
+                </div>
+
+                <div id="reviewContainer" class="p-6 divide-y divide-slate-200 space-y-6">
+                    <!-- Dynamic review items -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PRINTABLE CERTIFICATE & REPORT (Visible only on Print) -->
+        <section id="print-certificate" class="print-only p-8 bg-white text-slate-900">
+            <div class="certificate-container border-8 border-double border-blue-900 p-8 rounded-lg text-center relative max-w-3xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="text-left">
+                        <p class="text-xs text-slate-500 font-bold uppercase">SAFETY E-TESTING CERTIFICATE</p>
+                        <p class="text-xs text-slate-400" id="certDocNo">DOC NO: SAF-2024-001</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-500" id="certDate">วันที่สอบ: 10 มกราคม 2567</p>
+                    </div>
+                </div>
+
+                <div class="my-6">
+                    <i class="fa-solid fa-award text-5xl text-yellow-500 mb-2"></i>
+                    <h1 class="text-3xl font-extrabold text-blue-950 tracking-wide">ใบรับรองผ่านการทดสอบความรู้</h1>
+                    <p class="text-sm font-bold text-safety-blue mt-2" id="certExamTypeLabel">ทดสอบหลังอบรม (Post-test)</p>
+                    <p class="text-sm text-slate-600 mt-1">กฎกระทรวงกำหนดมาตรฐานในการบริหาร จัดการ และดำเนินการด้านความปลอดภัย อาชีวอนามัย และสภาพแวดล้อมในการทำงาน พ.ศ. 2564</p>
+                </div>
+
+                <div class="my-8 space-y-3">
+                    <p class="text-sm text-slate-500">ขอรับรองว่า</p>
+                    <h2 id="certName" class="text-2xl font-bold text-slate-900 underline decoration-slate-300 underline-offset-8">นายสมชาย ใจดี</h2>
+                    <p class="text-sm text-slate-700">
+                        ตำแหน่ง: <span id="certPosition" class="font-semibold">จป.วิชาชีพ</span> | 
+                        สังกัด: <span id="certCompany" class="font-semibold">บริษัท เซฟตี้ จำกัด</span>
+                    </p>
+                    <p class="text-xs text-slate-500">เลขบัตรประจำตัวประชาชน: <span id="certCitizenId" class="font-mono">1-2345-67890-12-3</span></p>
+                </div>
+
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 my-6 inline-block w-full max-w-md">
+                    <p class="text-xs text-slate-500">ผลการทดสอบความรู้ความเข้าใจ</p>
+                    <p class="text-xl font-bold text-blue-900 my-1">
+                        คะแนนที่ได้: <span id="certScore" class="text-2xl font-black">18</span> / 20 คะแนน (<span id="certPercent">90</span>%)
+                    </p>
+                    <p id="certStatus" class="text-xs font-bold text-emerald-600 uppercase">สถานะ: ผ่านตามเกณฑ์มาตรฐาน (Passed)</p>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-slate-200 grid grid-cols-2 gap-8 text-xs text-slate-500">
+                    <div>
+                        <div class="h-12 flex items-end justify-center">
+                            <span class="font-semibold text-slate-800" id="certSignName">( นายสมชาย ใจดี )</span>
+                        </div>
+                        <p class="mt-1">ลายมือชื่อผู้เข้ารับการทดสอบ</p>
+                    </div>
+                    <div>
+                        <div class="h-12 flex items-end justify-center">
+                            <span class="font-bold text-blue-950">ระบบตรวจผลสอบอัตโนมัติ</span>
+                        </div>
+                        <p class="mt-1">ผู้รับรองระบบประมวลผล E-Testing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CUSTOM CONFIRM MODAL (Replaces window.confirm/alert) -->
+    <div id="customModal" class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 animate-[pulse_0.2s_ease-out]">
+            <div class="flex items-center space-x-3 mb-4 text-safety-blue">
+                <i class="fa-solid fa-circle-exclamation text-2xl"></i>
+                <h3 id="modalTitle" class="text-lg font-bold text-slate-800">ยืนยัน</h3>
+            </div>
+            <p id="modalMessage" class="text-sm text-slate-600 mb-6 leading-relaxed">ข้อความ</p>
+            <div class="flex justify-end space-x-3">
+                <button id="modalCancel" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition-colors">ยกเลิก</button>
+                <button id="modalConfirm" class="px-5 py-2.5 bg-safety-blue hover:bg-blue-700 text-white rounded-xl text-sm font-semibold shadow-md shadow-blue-500/20 transition-all">ตกลง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 no-print">
+        <p>© 2024 ระบบทดสอบมาตรฐานความปลอดภัยในการทำงานบนที่สูง พ.ศ. 2564 | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Question Database (20 Questions based on Ministerial Regulation B.E. 2564)
+        const questionsData = [
+            {
+                id: 1,
+                question: "ตามกฎกระทรวง พ.ศ. 2564 คำว่า \"การทำงานในที่สูง\" หมายถึง การทำงานในพื้นที่ปฏิบัติงานที่สูงจากพื้นดินหรือจากพื้นอาคารตั้งแต่เท่าใดขึ้นไป ซึ่งลูกจ้างอาจพลัดตกลงมาได้?",
+                options: [
+                    "ตั้งแต่ 1.5 เมตรขึ้นไป",
+                    "ตั้งแต่ 2 เมตรขึ้นไป",
+                    "ตั้งแต่ 3 เมตรขึ้นไป",
+                    "ตั้งแต่ 4 เมตรขึ้นไป"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 1 ในกฎกระทรวงฯ ระบุว่า 'ทำงานในที่สูง' หมายความว่า การทำงานในพื้นที่ปฏิบัติงานที่สูงจากพื้นดินหรือจากพื้นอาคารตั้งแต่สองเมตรขึ้นไป"
+            },
+            {
+                id: 2,
+                question: "ในกรณีที่นายจ้างต้องจัดทำราวกั้นหรือรั้วกันตกตามกฎกระทรวงนี้ ราวกั้นหรือรั้วกันตกต้องมีความสูงอยู่ในช่วงใด?",
+                options: [
+                    "ไม่น้อยกว่า 80 เซนติเมตร แต่ไม่เกิน 100 เซนติเมตร",
+                    "ไม่น้อยกว่า 90 เซนติเมตร แต่ไม่เกิน 110 เซนติเมตร",
+                    "ไม่น้อยกว่า 100 เซนติเมตร แต่ไม่เกิน 120 เซนติเมตร",
+                    "ไม่น้อยกว่า 110 เซนติเมตร แต่ไม่เกิน 130 เซนติเมตร"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 6 (1) กำหนดให้ราวกั้นหรือรั้วกันตกต้องมีความสูงไม่น้อยกว่าเก้าสิบเซนติเมตร แต่ไม่เกินหนึ่งเมตรสิบเซนติเมตร"
+            },
+            {
+                id: 3,
+                question: "หากนายจ้างใช้แผงทึบแทนราวกั้นหรือรั้วกันตกเพื่อป้องกันการพลัดตก แผงทึบดังกล่าวจะต้องมีความสูงไม่น้อยกว่าเท่าใด?",
+                options: [
+                    "ไม่น้อยกว่า 80 เซนติเมตร",
+                    "ไม่น้อยกว่า 90 เซนติเมตร",
+                    "ไม่น้อยกว่า 100 เซนติเมตร",
+                    "ไม่น้อยกว่า 120 เซนติเมตร"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 6 (2) ในกรณีใช้แผงทึบ ต้องมีความสูงไม่น้อยกว่าเก้าสิบเซนติเมตร"
+            },
+            {
+                id: 4,
+                question: "นายจ้างต้องให้ลูกจ้างสวมใส่เข็มขัดนิรภัยและเชือกนิรภัยหรือสายช่วยชีวิตพร้อมอุปกรณ์ เมื่อทำงานในที่สูงตั้งแต่ความสูงเท่าใดขึ้นไป?",
+                options: [
+                    "ตั้งแต่ 2 เมตรขึ้นไป",
+                    "ตั้งแต่ 3 เมตรขึ้นไป",
+                    "ตั้งแต่ 4 เมตรขึ้นไป",
+                    "ตั้งแต่ 5 เมตรขึ้นไป"
+                ],
+                correctIndex: 2,
+                ref: "ข้อ 7 กำหนดให้นายจ้างจัดให้ลูกจ้างสวมใส่เข็มขัดนิรภัยและเชือกนิรภัยหรือสายช่วยชีวิตพร้อมอุปกรณ์ เมื่อลูกจ้างทำงานในที่สูงตั้งแต่สี่เมตรขึ้นไป"
+            },
+            {
+                id: 5,
+                question: "ก่อนที่ลูกจ้างจะเริ่มปฏิบัติงานในที่สูง ที่ลาดชัน หรือสถานที่ที่มีความเสี่ยง นายจ้างมีหน้าที่ต้องจัดให้มีสิ่งใดเป็นสำคัญ?",
+                options: [
+                    "การจ่ายค่าตอบแทนเสี่ยงภัยเพิ่ม",
+                    "ข้อบังคับและขั้นตอนการปฏิบัติงานเพื่อความปลอดภัย",
+                    "การทำประกันชีวิตเพิ่มเติมทุกคน",
+                    "หนังสือยินยอมรับความเสี่ยงจากลูกจ้าง"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 2 กำหนดให้นายจ้างต้องจัดทำข้อบังคับและขั้นตอนการปฏิบัติงานเพื่อความปลอดภัยในการทำงานในที่สูง ที่ลาดชัน ฯลฯ"
+            },
+            {
+                id: 6,
+                question: "ในการประกอบ การติดตั้ง การตรวจสอบ และการใช้อุปกรณ์ป้องกันอันตราย นายจ้างต้องปฏิบัติตามสิ่งใดเป็นลำดับแรก?",
+                options: [
+                    "รายละเอียดคุณลักษณะและคู่มือการใช้งานที่ผู้ผลิตกำหนดไว้",
+                    "ดลพินิจของผู้ควบคุมงาน",
+                    "ความสะดวกของลูกจ้าง",
+                    "งบประมาณที่ได้รับอนุมัติ"
+                ],
+                correctIndex: 0,
+                ref: "ข้อ 3 กำหนดให้นายจ้างต้องปฏิบัติตามรายละเอียดคุณลักษณะและคู่มือการใช้งานที่ผู้ผลิตกำหนดไว้"
+            },
+            {
+                id: 7,
+                question: "ข้อใดกล่าวถูกต้องเกี่ยวกับเอกสารข้อบังคับและคู่มือการใช้งานอุปกรณ์ตามกฎกระทรวงนี้?",
+                options: [
+                    "ต้องจัดทำเป็นกระดาษตอกตราเท่านั้น",
+                    "สามารถจัดเก็บในรูปแบบข้อมูลอิเล็กทรอนิกส์ได้",
+                    "ไม่ต้องจัดเก็บ เอกสารใช้แล้วทิ้งได้",
+                    "ต้องส่งให้กรมสวัสดิการและคุ้มครองแรงงานอนุมัติก่อนเสมอ"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 3 วรรคสอง ระบุว่า สำเนาเอกสารหรือคู่มือการใช้งานดังกล่าว จะจัดเก็บในรูปแบบข้อมูลอิเล็กทรอนิกส์ก็ได้"
+            },
+            {
+                id: 8,
+                question: "อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคลที่นำมาใช้งาน นายจ้างต้องดำเนินการอย่างไรก่อนการใช้งานทุกครั้ง?",
+                options: [
+                    "นำไปพ่นสีทำเครื่องหมายใหม่",
+                    "ตรวจสอบสภาพของอุปกรณ์ให้มั่นคงปลอดภัยพร้อมใช้งาน",
+                    "ส่งห้องแล็บทดสอบแรงดึง",
+                    "ชั่งน้ำหนักอุปกรณ์"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 4 นายจ้างต้องจัดให้มีการตรวจสอบสภาพของอุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคลให้อยู่ในสภาพที่ใช้งานได้อย่างปลอดภัยก่อนการใช้งานทุกครั้ง"
+            },
+            {
+                id: 9,
+                question: "ในการผูกยึดเชือกนิรภัยหรือสายช่วยชีวิต นายจ้างต้องจัดทำจุดยึดตรึงไว้กับส่วนใดของอาคาร?",
+                options: [
+                    "ท่อสายไฟหรือนั่งร้านไม้ไผ่",
+                    "โครงสร้างที่มีความมั่นคงแข็งแรงและรับน้ำหนักได้อย่างปลอดภัย",
+                    "ราวบันไดไม้",
+                    "ส่วนใดก็ได้ที่ขึงเชือกได้สะดวก"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 7 วรรคสอง จุดยึดตรึงเชือกนิรภัยหรือสายช่วยชีวิตต้องยึดไว้กับส่วนหนึ่งส่วนใดของอาคารหรือโครงสร้างที่มีความมั่นคงแข็งแรง"
+            },
+            {
+                id: 10,
+                question: "ในหมวดว่าด้วยการป้องกันอันตรายจากวัสดุกระเด็น ตกหล่น เมื่อมีการลำเลียงวัสดุขึ้นหรือลงจากที่สูง นายจ้างต้องจัดให้มีสิ่งใด?",
+                options: [
+                    "ปล่อง ราง เครื่องจักร หรืออุปกรณ์ที่เหมาะสมในการลำเลียง",
+                    "การโยนรับส่งกันด้วยความระมัดระวัง",
+                    "ตะกร้าสานไม้ไผ่ผูกเชือกธรรมดา",
+                    "การสไลด์วัสดุลงมาตามพื้นลาดชันโดยไม่มีสิ่งปิดกั้น"
+                ],
+                correctIndex: 0,
+                ref: "ข้อ 18 การลำเลียงวัสดุขึ้นหรือลงจากที่สูง นายจ้างต้องจัดให้มีราง ปล่อง เครื่องจักร หรืออุปกรณ์ที่เหมาะสมและปลอดภัยในการลำเลียง"
+            },
+            {
+                id: 11,
+                question: "เมื่อนายจ้างให้ลูกจ้างทำงานในท่อ ช่อง โพรง บ่อ หรือสถานที่อื่นใดที่อาจเกิดการพังทลายได้ นายจ้างต้องป้องกันอย่างไรตามข้อ 21?",
+                options: [
+                    "ให้ลูกจ้างคอยสังเกตการณ์เอง",
+                    "จัดทำผนังกั้น ค้ำยัน หรือใช้วิธีการอื่นใดที่ป้องกันการพังทลายได้",
+                    "ทำงานเฉพาะช่วงเวลากลางคืน",
+                    "สูบน้ำออกอย่างเดียวโดยไม่ต้องค้ำยัน"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 21 นายจ้างต้องจัดทำผนังกั้น ค้ำยัน หรือใช้วิธีการอื่นใดที่สามารถป้องกันอันตรายจากการพังทลายได้"
+            },
+            {
+                id: 12,
+                question: "ในการกองเก็บวัสดุจำนวนมาก นายจ้างต้องดำเนินการอย่างไรเพื่อป้องกันอันตรายจากการพังทลายตามข้อ 20?",
+                options: [
+                    "กองให้สูงที่สุดเพื่อประหยัดพื้นที่",
+                    "จัดเรียงให้มั่นคงปลอดภัย ทำผนังกั้น หรือใช้วิธีอื่นป้องกันการตกหล่นพังทลาย",
+                    "ใช้เชือกฟางผูกรอบกองวัสดุไว้",
+                    "ไม่ต้องทำอะไรเพิ่มเพราะวัสดุมีน้ำหนักมากอยู่แล้ว"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 20 การเก็บหรือกองวัสดุ นายจ้างต้องจัดเรียงให้มั่นคงปลอดภัย ทำผนังกั้น หรือใช้วิธีการอื่นเพื่อป้องกันการตกหล่นหรือพังทลาย"
+            },
+            {
+                id: 13,
+                question: "หากลักษณะงานอาจทำให้ลูกจ้างพลัดตกลงไปในภาชนะเก็บหรือรองรับวัสดุ (เช่น ถังไซโล บ่อเก็บ) นายจ้างต้องดำเนินการตามข้อ 22 อย่างไร?",
+                options: [
+                    "จัดให้มีสิ่งปิดกั้นที่มั่นคงแข็งแรง ราวกั้น หรือรั้วกันตกล้อมรอบภาชนะ",
+                    "ติดป้ายเตือนเพียงอย่างเดียว",
+                    "จัดหาไฟส่องสว่างให้เพียงพอเท่านั้น",
+                    "เปิดฝาทิ้งไว้เพื่อการระบายอากาศ"
+                ],
+                correctIndex: 0,
+                ref: "ข้อ 22 นายจ้างต้องจัดให้มีสิ่งปิดกั้นที่มั่นคงแข็งแรง ราวกั้น หรือรั้วกันตกล้อมรอบภาชนะเก็บหรือรองรับวัสดุนั้น"
+            },
+            {
+                id: 14,
+                question: "ในกรณีที่ไม่สามารถจัดทำสิ่งปิดกั้น ราวกั้น หรือรั้วกันตกล้อมรอบภาชนะเก็บหรือรองรับวัสดุได้ นายจ้างต้องให้ลูกจ้างปฏิบัติอย่างไร?",
+                options: [
+                    "ยกเลิกการทำงานทันที",
+                    "สวมใส่เข็มขัดนิรภัยและเชือกนิรภัยตลอดระยะเวลาการทำงาน",
+                    "ใช้มือจับขอบภาชนะไว้ให้แน่น",
+                    "เพิ่มจำนวนคนทำงานเป็นสองเท่า"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 22 วรรคสอง หากไม่อาจจัดให้มีสิ่งปิดกั้น ราวกั้น หรือรั้วกันตกได้ นายจ้างต้องให้ลูกจ้างสวมใส่เข็มขัดนิรภัยและเชือกนิรภัยตลอดเวลา"
+            },
+            {
+                id: 15,
+                question: "เมื่อลูกจ้างต้องเข้าไปทำงาน \"ภายใน\" ภาชนะเก็บหรือรองรับวัสดุ (เช่น ด้านในถังไซโล) นายจ้างต้องปฏิบัติอย่างไรตามข้อ 23?",
+                options: [
+                    "ให้ลูกจ้างเข้าไปลำพังเพื่อความรวดเร็ว",
+                    "ให้ลูกจ้างสวมใส่เข็มขัดนิรภัยและเชือกนิรภัยพร้อมมีผู้ช่วยเหลือประจำอยู่ภายนอก",
+                    "ไม่ต้องใช้อุปกรณ์ใดๆ หากไม่มีวัสดุอยู่ข้างใน",
+                    "เปิดพัดลมเป่าอย่างเดียว"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 23 กรณีลูกจ้างลงไปทำงานในภาชนะเก็บวัสดุ นายจ้างต้องให้ลูกจ้างสวมใส่เข็มขัดนิรภัยและเชือกนิรภัย และจัดให้มีผู้ช่วยเหลือเตรียมพร้อมอยู่ภายนอก"
+            },
+            {
+                id: 16,
+                question: "การดูแลรักษาอุปกรณ์ป้องกันอันตรายและ PPE นายจ้างต้องจัดเก็บและบำรุงรักษาอย่างไรตามข้อ 5?",
+                options: [
+                    "วางไว้กลางแจ้งให้แห้งสนิท",
+                    "บำรุงรักษาตามมาตรฐานที่ผู้ผลิตกำหนด และพร้อมให้พนักงานตรวจความปลอดภัยตรวจสอบ",
+                    "ซ่อมแซมเองด้วยเทปกาวเมื่อชำรุด",
+                    "มอบให้ลูกจ้างนำกลับไปดูแลรักษาที่บ้านเอง"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 5 นายจ้างต้องบำรุงรักษาอุปกรณ์ให้ใช้งานได้ปลอดภัยตามคู่มือผู้ผลิต และพร้อมให้พนักงานตรวจความปลอดภัยตรวจสอบได้"
+            },
+            {
+                id: 17,
+                question: "การติดตั้งนั่งร้านเพื่อทำงานในที่สูง ต้องเป็นไปตามหลักการใดตามข้อ 8?",
+                options: [
+                    "ใช้วัสดุอะไรก็ได้ตามแต่หาได้ในพื้นที่",
+                    "มีความมั่นคง แข็งแรง และปลอดภัยตามมาตรฐานวิศวกรรม",
+                    "เน้นความประหยัดงบประมาณเป็นหลัก",
+                    "ไม่จำเป็นต้องมีราวกันตกบนนั่งร้าน"
+                ],
+                correctIndex: 1,
+                ref: "ข้อ 8 การทำงานบนนั่งร้าน ต้องมั่นคง แข็งแรง และได้รับคำนวณออกแบบหรือตรวจสอบโดยวิศวกรตามกฎหมาย"
+            },
+            {
+                id: 18,
+                question: "กฎกระทรวงฉบับนี้ ออกโดยอาศัยอำนาจตามพระราชบัญญัติฉบับใด?",
+                options: [
+                    "พระราชบัญญัติคุ้มครองแรงงาน พ.ศ. 2541",
+                    "พระราชบัญญัติความปลอดภัย อาชีวอนามัย และสภาพแวดล้อมในการทำงาน พ.ศ. 2554",
+                    "พระราชบัญญัติโรงงาน พ.ศ. 2535",
+                    "พระราชบัญญัติการควบคุมอาคาร พ.ศ. 2522"
+                ],
+                correctIndex: 1,
+                ref: "ออกตามความใน พ.ร.บ. ความปลอดภัย อาชีวอนามัย และสภาพแวดล้อมในการทำงาน พ.ศ. 2554"
+            },
+            {
+                id: 19,
+                question: "เจตนารมณ์สำคัญของกฎกระทรวงฉบับนี้คือข้อใด?",
+                options: [
+                    "เพื่อกำหนดโทษปรับนายจ้างให้สูงขึ้น",
+                    "เพื่อยกระดับมาตรฐานการป้องกันการพลัดตก วัสดุตกหล่น พังทลาย และตกลงภาชนะ",
+                    "เพื่อลดขั้นตอนการทำงานของเจ้าหน้าที่รัฐ",
+                    "เพื่อบังคับให้ทุกบริษัทต้องซื้ออุปกรณ์ใหม่ทั้งหมด"
+                ],
+                correctIndex: 1,
+                ref: "เจตนารมณ์คือการกำหนดมาตรฐานความปลอดภัยในการทำงาน เพื่อป้องกันอุบัติเหตุตกจากที่สูง วัสดุตกหล่น พังทลายอย่างมีประสิทธิภาพ"
+            },
+            {
+                id: 20,
+                question: "กรณีที่ทำงานบนพื้นที่ลาดชันที่มีความเอียงเกินกว่ากี่องศา ที่นายจ้างต้องจัดให้มีสายช่วยชีวิตหรือระบบยึดเหนี่ยวเพื่อความปลอดภัย?",
+                options: [
+                    "เกินกว่า 15 องศา",
+                    "เกินกว่า 30 องศา",
+                    "เกินกว่า 45 องศา",
+                    "เกินกว่า 60 องศา"
+                ],
+                correctIndex: 1,
+                ref: "การทำงานในที่ลาดชันที่มีความเอียงเกิน 30 องศา ต้องจัดให้มีมาตรการป้องกันและสายช่วยชีวิตรองรับเพื่อความปลอดภัย"
+            }
+        ];
+
+        // State Management
+        let userProfile = {
+            fullName: '',
+            position: '',
+            company: '',
+            citizenId: '',
+            examType: ''
+        };
+
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questionsData.length).fill(null);
+
+        // DOM Elements
+        const stepReg = document.getElementById('step-registration');
+        const stepExam = document.getElementById('step-exam');
+        const stepResult = document.getElementById('step-result');
+
+        // Custom Modal Logic (Replaces alert & confirm)
+        function showCustomModal(title, message, onConfirmCallback) {
+            const modal = document.getElementById('customModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            
+            modal.classList.remove('hidden');
+
+            const confirmBtn = document.getElementById('modalConfirm');
+            const cancelBtn = document.getElementById('modalCancel');
+
+            // Clone to remove previous event listeners
+            const newConfirmBtn = confirmBtn.cloneNode(true);
+            const newCancelBtn = cancelBtn.cloneNode(true);
+            
+            confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+            cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+            newCancelBtn.onclick = () => {
+                modal.classList.add('hidden');
+            };
+
+            newConfirmBtn.onclick = () => {
+                modal.classList.add('hidden');
+                if(typeof onConfirmCallback === 'function') {
+                    onConfirmCallback();
+                }
+            };
+        }
+
+        // Handle Registration Submit
+        function handleStartExam(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const position = document.getElementById('position').value.trim();
+            const company = document.getElementById('company').value.trim();
+            const citizenId = document.getElementById('citizenId').value.trim();
+            const idError = document.getElementById('idError');
+            const examTypeInput = document.querySelector('input[name="examType"]:checked');
+
+            if (!examTypeInput) {
+                showCustomModal('แจ้งเตือน', 'กรุณาเลือกประเภทการทดสอบ (ก่อนอบรม หรือ หลังอบรม)');
+                return;
+            }
+
+            if (citizenId.length !== 13) {
+                idError.classList.remove('hidden');
+                return;
+            } else {
+                idError.classList.add('hidden');
+            }
+
+            const examType = examTypeInput.value;
+            userProfile = { fullName, position, company, citizenId, examType };
+
+            const examTypeLabel = examType === 'pre-test' ? 'ก่อนอบรม' : 'หลังอบรม';
+
+            // Update UI User Display
+            document.getElementById('displayUserName').textContent = fullName;
+            document.getElementById('displayUserDetail').textContent = `ประเภท: ${examTypeLabel} | ตำแหน่ง: ${position} | สังกัด: ${company}`;
+
+            // Switch to Exam Step
+            stepReg.classList.add('hidden');
+            stepExam.classList.remove('hidden');
+
+            renderQuestionGrid();
+            loadQuestion(0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Question Grid
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+
+            questionsData.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = `grid-btn-${index}`;
+                btn.className = `h-10 text-xs font-bold rounded-lg border transition-all flex items-center justify-center ${
+                    userAnswers[index] !== null 
+                        ? 'bg-emerald-100 border-emerald-500 text-emerald-800' 
+                        : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                }`;
+                btn.textContent = index + 1;
+                btn.onclick = () => loadQuestion(index);
+                grid.appendChild(btn);
+            });
+        }
+
+        // Load Question Content
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questionsData[index];
+
+            document.getElementById('currentQNum').textContent = index + 1;
+            document.getElementById('questionTitle').textContent = `${index + 1}. ${q.question}`;
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                const optBox = document.createElement('div');
+                optBox.className = `p-4 rounded-xl border-2 transition-all cursor-pointer flex items-center space-x-3 ${
+                    isSelected 
+                        ? 'border-safety-blue bg-blue-50/60 shadow-sm' 
+                        : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                }`;
+                optBox.onclick = () => selectOption(index, optIdx);
+
+                optBox.innerHTML = `
+                    <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold ${
+                        isSelected ? 'border-safety-blue bg-safety-blue text-white' : 'border-slate-400 text-slate-500'
+                    }">
+                        ${String.fromCharCode(65 + optIdx)}
+                    </div>
+                    <span class="text-sm sm:text-base text-slate-800 font-medium">${optText}</span>
+                `;
+                container.appendChild(optBox);
+            });
+
+            // Highlight in Grid
+            questionsData.forEach((_, idx) => {
+                const gridBtn = document.getElementById(`grid-btn-${idx}`);
+                if (gridBtn) {
+                    if (idx === index) {
+                        gridBtn.classList.add('ring-2', 'ring-safety-blue', 'ring-offset-1');
+                    } else {
+                        gridBtn.classList.remove('ring-2', 'ring-safety-blue', 'ring-offset-1');
+                    }
+                }
+            });
+
+            // Update Progress Bar
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const progressPercent = (answeredCount / questionsData.length) * 100;
+            document.getElementById('progressBar').style.width = `${progressPercent}%`;
+            document.getElementById('progressText').textContent = `ตอบแล้ว ${answeredCount} / ${questionsData.length} ข้อ`;
+
+            // Toggle Navigation Buttons
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            btnPrev.disabled = index === 0;
+            btnPrev.classList.toggle('opacity-50', index === 0);
+
+            if (index === questionsData.length - 1) {
+                btnNext.classList.add('hidden');
+                btnSubmit.classList.remove('hidden');
+            } else {
+                btnNext.classList.remove('hidden');
+                btnSubmit.classList.add('hidden');
+            }
+        }
+
+        // Select Option
+        function selectOption(qIdx, optIdx) {
+            userAnswers[qIdx] = optIdx;
+            
+            // Update Grid style
+            const gridBtn = document.getElementById(`grid-btn-${qIdx}`);
+            if (gridBtn) {
+                gridBtn.className = `h-10 text-xs font-bold rounded-lg border transition-all flex items-center justify-center bg-emerald-100 border-emerald-500 text-emerald-800 ring-2 ring-safety-blue ring-offset-1`;
+            }
+
+            loadQuestion(qIdx);
+        }
+
+        // Navigate Question
+        function navigateQuestion(direction) {
+            const newIndex = currentQuestionIndex + direction;
+            if (newIndex >= 0 && newIndex < questionsData.length) {
+                loadQuestion(newIndex);
+            }
+        }
+
+        // Confirm & Calculate Exam Results
+        function confirmSubmitExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                showCustomModal('แจ้งเตือนการส่งข้อสอบ', `คุณยังไม่ได้ตอบคำถามอีก ${unanswered} ข้อ ต้องการส่งข้อสอบเลยหรือไม่?`, calculateResults);
+            } else {
+                showCustomModal('ยืนยันการส่งข้อสอบ', 'คุณทำข้อสอบครบทุกข้อแล้ว ต้องการยืนยันส่งข้อสอบใช่หรือไม่?', calculateResults);
+            }
+        }
+
+        // Calculate and Render Results
+        function calculateResults() {
+            let score = 0;
+            questionsData.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correctIndex) {
+                    score++;
+                }
+            });
+
+            const percentage = Math.round((score / questionsData.length) * 100);
+            const isPassed = percentage >= 70;
+
+            // Render Header Card Status
+            const headerCard = document.getElementById('resultHeaderCard');
+            const statusText = document.getElementById('resultStatusText');
+            const subText = document.getElementById('resultSubText');
+            const icon = document.getElementById('resultIcon');
+
+            if (isPassed) {
+                headerCard.className = "rounded-2xl shadow-lg border p-6 sm:p-8 text-white text-center bg-gradient-to-r from-emerald-600 via-teal-700 to-green-600 border-emerald-500";
+                statusText.textContent = "ผลการทดสอบ: ผ่านเกณฑ์มาตรฐาน";
+                subText.textContent = "ยินดีด้วย! คุณมีความรู้ความเข้าใจตามมาตรฐานกฎกระทรวง พ.ศ. 2564";
+                icon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-200"></i>`;
+            } else {
+                headerCard.className = "rounded-2xl shadow-lg border p-6 sm:p-8 text-white text-center bg-gradient-to-r from-red-600 via-rose-700 to-red-700 border-red-500";
+                statusText.textContent = "ผลการทดสอบ: ไม่ผ่านเกณฑ์มาตรฐาน";
+                subText.textContent = "เกณฑ์ผ่านคือ 70% (14 คะแนนขึ้นไป) โปรดทบทวนเนื้อหาแล้วลองใหม่อีกครั้ง";
+                icon.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-rose-200"></i>`;
+            }
+
+            document.getElementById('scoreDisplay').textContent = `${score} / ${questionsData.length}`;
+            document.getElementById('percentageDisplay').textContent = `คิดเป็น ${percentage}% (เกณฑ์ผ่าน 70%)`;
+
+            // Candidate Summary Info
+            document.getElementById('resName').textContent = userProfile.fullName;
+            document.getElementById('resPosition').textContent = userProfile.position;
+            document.getElementById('resCompany').textContent = userProfile.company;
+            document.getElementById('resCitizenId').textContent = formatCitizenId(userProfile.citizenId);
+            
+            const examTypeDisplay = userProfile.examType === 'pre-test' ? 'ก่อนอบรม (Pre-test)' : 'หลังอบรม (Post-test)';
+            document.getElementById('resExamType').textContent = examTypeDisplay;
+
+            // Populate Certificate
+            document.getElementById('certName').textContent = userProfile.fullName;
+            document.getElementById('certPosition').textContent = userProfile.position;
+            document.getElementById('certCompany').textContent = userProfile.company;
+            document.getElementById('certCitizenId').textContent = formatCitizenId(userProfile.citizenId);
+            document.getElementById('certScore').textContent = score;
+            document.getElementById('certPercent').textContent = percentage;
+            document.getElementById('certSignName').textContent = `( ${userProfile.fullName} )`;
+            document.getElementById('certExamTypeLabel').textContent = `การทดสอบความรู้${examTypeDisplay}`;
+            
+            const certStatus = document.getElementById('certStatus');
+            if(isPassed) {
+                certStatus.textContent = "สถานะ: ผ่านตามเกณฑ์มาตรฐาน (PASSED)";
+                certStatus.className = "text-xs font-bold text-emerald-600 uppercase";
+            } else {
+                certStatus.textContent = "สถานะ: ไม่ผ่านเกณฑ์มาตรฐาน (FAILED)";
+                certStatus.className = "text-xs font-bold text-red-600 uppercase";
+            }
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('certDate').textContent = `วันที่สอบ: ${dateStr}`;
+            document.getElementById('certDocNo').textContent = `DOC NO: SAF-${now.getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+            // Render Detailed Review Items
+            renderReviewItems();
+
+            // -------------------------------------------------------------
+            // Google Sheets Integration (Fetch API POST request)
+            // -------------------------------------------------------------
+            // >>> คำเตือน: แทนที่บรรทัดด้านล่างด้วย URL ที่คุณคัดลอกมาจาก Apps Script
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbz3w5uBUnpr9QNe4B3QcPSYoH0J2fidF8vzMn_TtbJ2XuWuDh7nFOHmehv8bg2Lm0G8dw/exec'; 
+            
+            const examData = {
+                fullName: userProfile.fullName,
+                position: userProfile.position,
+                company: userProfile.company,
+                citizenId: userProfile.citizenId,
+                examType: userProfile.examType === 'pre-test' ? 'Pre-test' : 'Post-test',
+                score: score,
+                percentage: percentage,
+                status: isPassed ? 'ผ่าน' : 'ไม่ผ่าน'
+            };
+
+            // แสดงสถานะว่ากำลังส่งข้อมูลที่ปุ่ม Submit (แม้จะเปลี่ยนหน้าไปแล้วแต่ Request จะวิ่งอยู่เบื้องหลัง)
+            const submitBtnText = document.getElementById('btnSubmitText');
+            if(submitBtnText) submitBtnText.textContent = 'กำลังประมวลผล...';
+            
+            // ส่งข้อมูลโดยใช้ POST พร้อมโหมด 'no-cors' เพื่อไม่ให้ถูกบล็อกเรื่องนโยบายข้ามโดเมน
+            if(scriptURL !== 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL') {
+                fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(examData),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                })
+                .then(() => console.log('ส่งข้อมูลไปยัง Google Sheets สำเร็จเรียบร้อยแล้ว'))
+                .catch(error => console.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล:', error));
+            } else {
+                console.warn('โปรดใส่ Web App URL ของคุณ เพื่อให้ระบบบันทึกผลลง Google Sheets');
+            }
+            // -------------------------------------------------------------
+
+            // Switch Steps
+            stepExam.classList.add('hidden');
+            stepResult.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Answer Review List
+        function renderReviewItems() {
+            const container = document.getElementById('reviewContainer');
+            container.innerHTML = '';
+
+            questionsData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correctIndex;
+
+                const item = document.createElement('div');
+                item.className = "pt-6 first:pt-0";
+
+                item.innerHTML = `
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">
+                            <span class="text-slate-400 mr-1">ข้อ ${idx + 1}.</span> ${q.question}
+                        </h4>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-bold flex-shrink-0 ${
+                            isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'
+                        }">
+                            <i class="fa-solid ${isCorrect ? 'fa-check' : 'fa-xmark'} mr-1"></i>
+                            ${isCorrect ? 'ถูกต้อง' : 'ตอบผิด'}
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 my-3 text-xs sm:text-sm">
+                        <div class="p-3 rounded-lg border ${
+                            userAns !== null 
+                                ? (isCorrect ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-red-50 border-red-300 text-red-900')
+                                : 'bg-slate-100 border-slate-300 text-slate-500'
+                        }">
+                            <span class="font-bold block text-xs opacity-75 mb-0.5">คำตอบของคุณ:</span>
+                            ${userAns !== null ? `${String.fromCharCode(65 + userAns)}. ${q.options[userAns]}` : 'ไม่ได้ตอบคำถาม'}
+                        </div>
+
+                        <div class="p-3 rounded-lg border bg-blue-50 border-blue-200 text-blue-900">
+                            <span class="font-bold block text-xs opacity-75 mb-0.5">คำตอบที่ถูกต้อง:</span>
+                            ${String.fromCharCode(65 + q.correctIndex)}. ${q.options[q.correctIndex]}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border-l-4 border-safety-orange p-3 rounded-r-lg text-xs text-slate-700">
+                        <span class="font-bold text-safety-orange block mb-0.5"><i class="fa-solid fa-book-bookmark mr-1"></i>อ้างอิงข้อกฎหมาย:</span>
+                        ${q.ref}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Helper: Format Citizen ID (X-XXXX-XXXXX-XX-X)
+        function formatCitizenId(id) {
+            if (!id || id.length !== 13) return id;
+            return `${id.substring(0, 1)}-${id.substring(1, 5)}-${id.substring(5, 10)}-${id.substring(10, 12)}-${id.substring(12)}`;
+        }
+
+        // Restart Exam with Custom Modal Check
+        function restartExam() {
+            showCustomModal('เริ่มทำแบบทดสอบใหม่', 'คุณต้องการทำแบบทดสอบอีกครั้งใช่หรือไม่? ข้อมูลการสอบเดิมจะถูกลบทั้งหมด', () => {
+                userAnswers = new Array(questionsData.length).fill(null);
+                
+                // Reset Button Text
+                const submitBtnText = document.getElementById('btnSubmitText');
+                if(submitBtnText) submitBtnText.textContent = 'ส่งข้อสอบ';
+
+                stepResult.classList.add('hidden');
+                stepReg.classList.remove('hidden');
+                document.getElementById('regForm').reset();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
+</body>
+</html>
